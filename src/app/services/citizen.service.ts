@@ -14,8 +14,6 @@ export class CitizenService {
   private contract: Contract;
 
   constructor() {
-    console.log(process.env.METAMASK_PRIVATEKEY);
-
     this.initWeb3();
   }
 
