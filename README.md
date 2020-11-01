@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Clone this repo and then open bash in repo dir
 
-First Run npm `install to install` dependencies
+First Run `npm install to install` dependencies
 
 _you can use the app without these changes if you need to quickly run_
 
