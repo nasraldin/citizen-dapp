@@ -40,6 +40,7 @@ import { components as layoutComponents } from './layout';
       multi: true,
     },
     { provide: ErrorHandler, useClass: AppErrorHandler },
+    { provide: Window, useValue: window },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,18 @@
-<app-header></app-header>
-<main role="main">
-  <router-outlet></router-outlet>
-</main>
-<app-footer></app-footer>
+<ng-container *ngIf="ethEnabled()">
+  <app-header></app-header>
+  <main role="main">
+    <router-outlet></router-outlet>
+  </main>
+  <app-footer></app-footer>
+</ng-container>
+
+<ng-container *ngIf="!ethEnabled()">
+  <div
+    class="alert alert-danger"
+    role="alert"
+    style="width: 433px; margin: 0 auto"
+  >
+    Please install MetaMask extension to use this DApp!
+    <a href="https://metamask.io">MetaMask</a>
+  </div>
+</ng-container>

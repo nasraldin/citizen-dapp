@@ -8,11 +8,11 @@ Clone this repo and then open bash in repo dir
 
 First Run npm `install to install` dependencies
 
-_you can use the app without these changes if you need to quickly run_
+export your privatekey to system env `export METAMASK_PRIVATEKEY=yourPKey`
 
-open file `environment.ts` under environments folder and replace metamask account, privateKey to your own one
+check your PKey is exported `echo $METAMASK_PRIVATEKEY`
 
-also, you can change test network if you need this in `web3-config.json` under assets/config folder will find ropsten > provider change to your own one by creating a new project on https://infura.io
+make sure you install MetaMask extension in your browser
 
 after do all chnages then you can run app
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

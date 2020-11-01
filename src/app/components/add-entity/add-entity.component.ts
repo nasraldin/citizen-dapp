@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 })
 export class AddEntityComponent implements OnInit {
   hasError = false;
+  btnSubmit = false;
   form = this.fb.group({
     age: ['', [Validators.required, Validators.min(18), Validators.max(150)]],
     city: ['', Validators.required],
@@ -38,6 +39,8 @@ export class AddEntityComponent implements OnInit {
   }
 
   async onSubmit(form: FormGroup): Promise<void> {
+    this.btnSubmit = !this.btnSubmit;
+
     const citizen: Citizen = {
       age: form.controls.age.value,
       city: form.controls.city.value,
@@ -48,6 +51,7 @@ export class AddEntityComponent implements OnInit {
     const added = await this.service.addCitizen(citizen);
 
     if (added) {
+      this.btnSubmit = !this.btnSubmit;
       this.toastService.show('Successfully added', {
         classname: 'bg-success text-light',
         delay: 10000,

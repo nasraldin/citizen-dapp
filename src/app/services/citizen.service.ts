@@ -14,6 +14,8 @@ export class CitizenService {
   private contract: Contract;
 
   constructor() {
+    console.log(process.env.METAMASK_PRIVATEKEY);
+
     this.initWeb3();
   }
 
@@ -21,16 +23,16 @@ export class CitizenService {
    * initialize instance obj of Web3, contract.
    */
   private initWeb3(): void {
-    this.web3 = new Web3(
-      Web3ConfigService.web3Config.networks.ropsten.provider
-    );
+    if (window.ethereum) {
+      this.web3 = new Web3(window.ethereum);
 
-    this.web3.eth.accounts.wallet.add(environment.metamask.privateKey);
-
-    this.contract = new this.web3.eth.Contract(
-      Web3ConfigService.web3Config.abi,
-      Web3ConfigService.web3Config.networks.ropsten.address
-    );
+      this.contract = new this.web3.eth.Contract(
+        Web3ConfigService.web3Config.abi,
+        environment.address
+      );
+    } else {
+      alert('Please install MetaMask extension to use this DApp!');
+    }
   }
 
   /**
@@ -39,8 +41,8 @@ export class CitizenService {
    * @param citizen citizen
    */
   public async addCitizen(citizen: Citizen): Promise<boolean> {
-    const address = environment.metamask.account;
-    const privateKey = environment.metamask.privateKey;
+    const address = await this.getAccount();
+    const privateKey = process.env.METAMASK_PRIVATEKEY;
 
     const tx = this.contract.methods.addCitizen(
       citizen.age,
@@ -56,6 +58,7 @@ export class CitizenService {
 
     const signedTx = await this.web3.eth.accounts.signTransaction(
       {
+        from: address,
         to: this.contract.options.address,
         data,
         gas,
@@ -80,6 +83,29 @@ export class CitizenService {
     }
 
     return false;
+  }
+
+  async getAccount(): Promise<string> {
+    let account: string;
+
+    if (window.ethereum) {
+      await window.ethereum
+        .request({
+          method: 'eth_requestAccounts',
+        })
+        .then((result) => {
+          account = result[0];
+        })
+        .catch((err) => {
+          if (err.code === 4001) {
+            alert('Please connect with MetaMask to sending transactions');
+          }
+        });
+
+      return account;
+    }
+
+    return undefined;
   }
 
   /**

@@ -99,7 +99,14 @@
                 type="submit"
                 class="btn btn-primary"
               >
-                Submit
+                <span *ngIf="btnSubmit">Loading...</span>
+                <span *ngIf="!btnSubmit">Submit</span>
+                <span
+                  class="spinner-border spinner-border-sm ml-1"
+                  role="status"
+                  aria-hidden="true"
+                  *ngIf="btnSubmit"
+                ></span>
               </button>
             </div>
           </form>

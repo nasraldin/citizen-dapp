@@ -11,7 +11,7 @@ export class Web3ConfigService {
   constructor(private http: HttpClient) {}
 
   load(): Promise<Web3Config> {
-    const jsonFile = `assets/config/web3-config.json`;
+    const jsonFile = `assets/config/abi.json`;
 
     return new Promise<Web3Config>((resolve, reject) => {
       this.http

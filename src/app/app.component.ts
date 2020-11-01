@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'citizen-dapp';
+
+  ethEnabled(): boolean {
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      return true;
+    }
+
+    return false;
+  }
 }
