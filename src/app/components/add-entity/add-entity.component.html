@@ -1,0 +1,112 @@
+<div class="container add">
+  <div class="row">
+    <div class="col-8 m-auto">
+      <div class="card">
+        <div class="card-body">
+          <form
+            [ngClass]="hasError ? 'needs-validation' : 'was-validated'"
+            (ngSubmit)="onSubmit(form)"
+            [formGroup]="form"
+            novalidate
+          >
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                placeholder="Your name."
+                formControlName="name"
+                required
+              />
+              <span
+                class="invalid-feedback"
+                *ngIf="form.get('name').hasError('required')"
+                >Name can't be empty</span
+              >
+            </div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                id="age"
+                placeholder="Your age."
+                formControlName="age"
+                required
+              />
+              <span
+                class="invalid-feedback"
+                *ngIf="
+                  (formControl.age.touched || hasError) &&
+                  formControl.age.errors?.required
+                "
+                >Age is required</span
+              >
+              <span
+                class="invalid"
+                *ngIf="
+                  (formControl.age.touched || hasError) &&
+                  (formControl.age.errors?.min || formControl.age.errors?.max)
+                "
+              >
+                Only adults can be added to the list
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                placeholder="Your city."
+                formControlName="city"
+                required
+              />
+              <span
+                class="invalid-feedback"
+                *ngIf="form.get('city').hasError('required')"
+                >City can't be empty</span
+              >
+            </div>
+            <div class="form-group">
+              <label for="someNote">Some Notes</label>
+              <textarea
+                class="form-control"
+                id="someNote"
+                rows="3"
+                placeholder="Notes..."
+                formControlName="someNote"
+                required
+              ></textarea>
+              <span
+                class="invalid-feedback"
+                *ngIf="form.get('someNote').hasError('required')"
+                >Notes about citizen are required</span
+              >
+            </div>
+
+            <div class="text-right">
+              <button
+                (click)="back()"
+                type="button"
+                class="btn btn-secondary mr-2"
+              >
+                Back
+              </button>
+              <button
+                [disabled]="!form.valid"
+                type="submit"
+                class="btn btn-primary"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  padding-top: 3.5rem;
+  background: #f7f7f7;
+}
+
+.add {
+  padding-top: 3.5rem;
+}
+
+span.ngb-highlight {
+  background-color: yellow;
+}
+
+span.ngb-highlight {
+  background-color: yellow;
+}
+
+.nothing::before {
+  display: block;
+  width: 100%;
+  padding: 100px 2rem;
+  margin-right: 15px;
+  margin-left: 15px;
+  color: #adb5bd;
+  text-align: center;
+  content: "Loading...";
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.toast.show {
+  position: relative;
+  top: 70px;
+}
+
+.invalid {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}

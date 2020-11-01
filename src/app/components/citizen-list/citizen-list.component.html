@@ -1,0 +1,126 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">Citizens list</h1>
+    <p>
+      This is page display a list of all citizens, 5 persons per page, and you
+      can show notes about the citizen in a pop-up window. Also, you can add a
+      new entity to the registry.
+    </p>
+  </div>
+</div>
+
+<div class="container add">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="container">
+              <div class="d-flex">
+                <h2>Citizens</h2>
+                <div class="form-group form-inline d-flex flex-nowrap ml-auto">
+                  <input
+                    class="form-control ml-2"
+                    type="text"
+                    name="searchTerm"
+                    placeholder="Start typing to filter..."
+                    [(ngModel)]="searchQuery"
+                    (keyup)="setStatus()"
+                  />
+                </div>
+                <!-- <span class="ml-3" *ngIf="noSearchResult"> Loading... </span> -->
+              </div>
+              <table
+                class="table table-striped"
+                *ngIf="citizensModel && citizensModel.length > 0"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let citizen of citizensModel
+                        | filter: searchQuery
+                        | paginate: config;
+                      let _i = index
+                    "
+                  >
+                    <th scope="row">{{ citizen.id }}</th>
+                    <td>
+                      <ngb-highlight
+                        [result]="citizen.name"
+                        [term]="searchQuery"
+                      ></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight
+                        [result]="citizen.age"
+                        [term]="searchQuery"
+                      ></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight
+                        [result]="citizen.city"
+                        [term]="searchQuery"
+                      ></ngb-highlight>
+                    </td>
+                    <td>
+                      <button
+                        class="btn btn-primary"
+                        title="Show notes"
+                        (click)="openModal(citizen.id)"
+                      >
+                        Show Notes
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <ul
+                *ngIf="!citizensModel"
+                class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list nothing"
+              ></ul>
+
+              <div class="d-flex justify-content-between p-2" *ngIf="config">
+                <div>
+                  <!-- <span> Items: {{ config.totalItems }} </span> -->
+                  <ngb-pagination
+                    [collectionSize]="config.totalItems"
+                    [(page)]="config.currentPage"
+                    [pageSize]="config.itemsPerPage"
+                    [maxSize]="5"
+                    [boundaryLinks]="true"
+                    [rotate]="true"
+                    class="d-inline-flex"
+                  ></ngb-pagination>
+                </div>
+                <div>
+                  <span class="mr-2">Show</span>
+                  <select
+                    class="custom-select"
+                    style="width: auto"
+                    name="pageSize"
+                    [(ngModel)]="config.itemsPerPage"
+                  >
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="20">20</option>
+                  </select>
+                  <span class="ml-1">Records</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
