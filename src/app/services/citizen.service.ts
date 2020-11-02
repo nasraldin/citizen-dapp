@@ -40,44 +40,13 @@ export class CitizenService {
    */
   public async addCitizen(citizen: Citizen): Promise<boolean> {
     const address = await this.getAccount();
-    const privateKey = process.env.METAMASK_PRIVATEKEY;
 
-    const tx = this.contract.methods.addCitizen(
-      citizen.age,
-      citizen.city,
-      citizen.name,
-      citizen.someNote
-    );
+    const receipt = await this.contract.methods
+      .addCitizen(citizen.age, citizen.city, citizen.name, citizen.someNote)
+      .send({ from: address });
 
-    const gas = await tx.estimateGas({ from: address });
-    const gasPrice = await this.web3.eth.getGasPrice();
-    const data = tx.encodeABI();
-    const nonce = await this.web3.eth.getTransactionCount(address);
-
-    const signedTx = await this.web3.eth.accounts.signTransaction(
-      {
-        from: address,
-        to: this.contract.options.address,
-        data,
-        gas,
-        gasPrice,
-        nonce,
-      },
-      privateKey
-    );
-
-    try {
-      const receipt = await this.web3.eth.sendSignedTransaction(
-        signedTx.rawTransaction
-      );
-
-      // console.log(`Transaction hash: ${receipt.transactionHash}`);
-
-      if (receipt) {
-        return true;
-      }
-    } catch (error) {
-      // console.error(error);
+    if (receipt) {
+      return true;
     }
 
     return false;
