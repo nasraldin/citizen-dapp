@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
 
-[task presentation](https://docs.google.com/presentation/d/1pZXmDGrxqyATpQPmkXw7HQloIsVvgZZ3Qf6sIb2GtUw/edit#slide=id.g7540060d61_0_126)
+[task presentation](https://docs.google.com/presentation/d/1pZXmDGrxqyATpQPmkXw7HQloIsVvgZZ3Qf6sIb2GtUw/edit?usp=sharing)
 
 ## Development server
 
